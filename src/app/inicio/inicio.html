@@ -1,0 +1,57 @@
+<!-- HEADER -->
+<header class="header">
+    <h1 class="logo">Mi Tienda</h1>
+    <div class="carrito">
+        <span class="icono">🛒</span>
+        <span class="total">$129.99</span>
+    </div>
+</header>
+
+<!-- BANNER -->
+<section class="banner">
+    <img src="https://i.ibb.co/d0fjtYsb/mi-Tienda-Banner.png" alt="Banner de tienda" />
+</section>
+
+<!-- FILTROS -->
+<section class="filtros">
+    <div class="filtros-header">
+        <h2>
+            Productos de la categoría:
+            <strong>{{ categoriaSeleccionada || 'Todas' }}</strong>
+        </h2>
+
+        <div class="busqueda">
+            <input type="text" placeholder="Buscar..." [(ngModel)]="textoBusqueda" (input)="aplicarFiltros()" />
+
+            <div class="dropdown" (click)="toggleDropdown()" tabindex="0">
+                <div class="dropdown-label">
+                    {{ categoriaSeleccionada || 'Todas las categorías' }}
+                    <span class="flecha">▼</span>
+                </div>
+                <ul class="dropdown-menu" *ngIf="dropdownAbierto">
+                    <li (click)="seleccionarCategoria('', $event)">Todas</li>
+                    <li *ngFor="let cat of categorias" (click)="seleccionarCategoria(cat, $event)">
+                        {{ cat }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GRID DE PRODUCTOS -->
+<section class="grid">
+    <div class="card" *ngFor="let producto of productos">
+        <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+        <div class="info">
+            <h3>{{ producto.title }}</h3>
+            <p class="precio">${{ producto.price }}</p>
+            <p class="descripcion">{{ producto.description | slice:0:60 }}...</p>
+
+            <div class="acciones">
+                <span class="tag">{{producto.category}}</span>
+                <button class="btn">Detalles</button>
+            </div>
+        </div>
+    </div>
+</section>
