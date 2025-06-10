@@ -8,8 +8,12 @@
 </header>
 
 <!-- BANNER -->
-<section class="banner">
-    <img src="https://i.ibb.co/d0fjtYsb/mi-Tienda-Banner.png" alt="Banner de tienda" />
+<section class="carousel">
+    <button class="prev" (click)="anterior()">‹</button>
+
+    <img [src]="imagenes[indiceActual]" [alt]="'Imagen ' + (indiceActual + 1)" />
+
+    <button class="next" (click)="siguiente()">›</button>
 </section>
 
 <!-- FILTROS -->
