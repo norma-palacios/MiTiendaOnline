@@ -1,0 +1,14 @@
+<div *ngIf="mostrarCarrito" class="modal">
+    <h2>Carrito de Compras</h2>
+
+    <div *ngFor="let producto of carritoService.obtenerCarrito()">
+        <div class="producto">
+            <p><strong>{{ producto.title }}</strong></p>
+            <p>Precio: ${{ producto.price }}</p>
+            <button (click)="eliminarDelCarrito(producto)">Eliminar</button>
+        </div>
+    </div>
+
+    <h3>Total: ${{ carritoService.obtenerTotal() }}</h3>
+    <button (click)="cerrarCarrito()">Cerrar</button>
+</div>
