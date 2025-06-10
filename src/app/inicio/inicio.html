@@ -1,11 +1,14 @@
 <!-- HEADER -->
 <header class="header">
     <h1 class="logo">Mi Tienda</h1>
-    <div class="carrito">
+    <div class="carrito" (click)="abrirCarrito()">
         <span class="icono">🛒</span>
-        <span class="total">$129.99</span>
+        <span class="total">${{ carritoService.obtenerTotal() }}</span>
     </div>
 </header>
+
+<!-- Agregar el modal del carrito aquí -->
+<app-carrito-modal *ngIf="mostrarCarrito"></app-carrito-modal>
 
 <!-- BANNER -->
 <section class="carousel">
@@ -46,16 +49,17 @@
 <!-- GRID DE PRODUCTOS -->
 <section class="grid">
     <div class="card" *ngFor="let producto of productos">
-        <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
-        <div class="info">
-            <h3>{{ producto.title }}</h3>
-            <p class="precio">${{ producto.price }}</p>
-            <p class="descripcion">{{ producto.description | slice:0:60 }}...</p>
+    <img [src]="producto.image" alt="Imagen de {{ producto.title }}" />
+    <div class="info">
+        <h3>{{ producto.title }}</h3>
+        <p class="precio">${{ producto.price }}</p>
+        <p class="descripcion">{{ producto.description | slice:0:60 }}...</p>
 
-            <div class="acciones">
-                <span class="tag">{{producto.category}}</span>
-                <button class="btn">Detalles</button>
-            </div>
+        <div class="acciones">
+            <span class="tag">{{ producto.category }}</span>
+            <button class="btn" (click)="abrirModal(producto)">Detalles</button>
+            <button class="btn btn-agregar" (click)="agregarAlCarrito(producto)">Añadir</button>
         </div>
     </div>
+</div>
 </section>

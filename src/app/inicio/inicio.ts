@@ -2,11 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductosService, Producto } from '../servicios/productos.service';
+import { CarritoService } from '../servicios/carrito.service';
+import { CarritoModalComponent } from './carrito-modal.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 
 @Component({
   standalone: true,
   selector: 'app-inicio',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CarritoModalComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Permite que Angular reconozca elementos person
   templateUrl: './inicio.html',
   styleUrls: ['./inicio.css']
 })
@@ -27,7 +33,8 @@ export class Inicio implements OnInit {
   productos: Producto[] = [];
   categorias: string[] = [];
 
-  constructor(private productosService: ProductosService) { }
+  //Modificacion carritoService
+  constructor(private productosService: ProductosService, public carritoService: CarritoService) { }
 
   ngOnInit(): void {
     this.productosService.obtenerProductos().subscribe(data => {
@@ -71,4 +78,31 @@ export class Inicio implements OnInit {
       return coincideCategoria && coincideTexto;
     });
   }
+
+    //Codigo agregado - Carrito de compras
+    mostrarCarrito = false; 
+
+    abrirCarrito() {
+      this.mostrarCarrito = true;
+    }
+
+    cerrarCarrito() {
+      this.mostrarCarrito = false;
+    }
+
+    productoSeleccionado: Producto | null = null; // Propiedad para almacenar el producto seleccionado
+
+    abrirModal(producto: Producto) {
+      this.productoSeleccionado = producto;
+    }
+
+    cerrarModal() {
+      this.productoSeleccionado = null;
+    }
+
+    agregarAlCarrito(producto: Producto) {
+  this.carritoService.agregarProducto(producto);
+  console.log('Producto agregado:', producto);
+}
+
 }
