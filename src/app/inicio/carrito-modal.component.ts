@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CarritoService } from '../servicios/carrito.service';
 
 @Component({
   selector: 'app-carrito-modal', // Confirma que el selector es correcto
+  imports: [CommonModule],
   templateUrl: './carrito-modal.component.html',
 })
 

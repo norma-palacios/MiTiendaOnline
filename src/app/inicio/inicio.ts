@@ -79,30 +79,30 @@ export class Inicio implements OnInit {
     });
   }
 
-    //Codigo agregado - Carrito de compras
-    mostrarCarrito = false; 
+  //Codigo agregado - Carrito de compras
+  mostrarCarrito = false;
 
-    abrirCarrito() {
-      this.mostrarCarrito = true;
-    }
+  abrirCarrito() {
+    this.mostrarCarrito = true;
+  }
 
-    cerrarCarrito() {
-      this.mostrarCarrito = false;
-    }
+  cerrarCarrito() {
+    this.mostrarCarrito = false;
+  }
 
-    productoSeleccionado: Producto | null = null; // Propiedad para almacenar el producto seleccionado
+  productoSeleccionado: Producto | null = null; // Propiedad para almacenar el producto seleccionado
 
-    abrirModal(producto: Producto) {
-      this.productoSeleccionado = producto;
-    }
+  abrirModal(producto: Producto) {
+    this.productoSeleccionado = producto;
+  }
 
-    cerrarModal() {
-      this.productoSeleccionado = null;
-    }
+  cerrarModal() {
+    this.productoSeleccionado = null;
+  }
 
-    agregarAlCarrito(producto: Producto) {
-  this.carritoService.agregarProducto(producto);
-  console.log('Producto agregado:', producto);
-}
+  agregarAlCarrito(producto: Producto) {
+    this.carritoService.agregarProducto(producto);
+    console.log('Producto agregado:', producto);
+  }
 
 }
