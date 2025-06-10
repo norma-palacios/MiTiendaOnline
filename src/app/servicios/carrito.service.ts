@@ -26,6 +26,7 @@ export class CarritoService {
     return this.productos;
   }
 
+  //Calculo de cantidad del carrito de compra
   obtenerTotal() {
     return this.productos.reduce((sum, item) => sum + item.price, 0).toFixed(2);
   }
