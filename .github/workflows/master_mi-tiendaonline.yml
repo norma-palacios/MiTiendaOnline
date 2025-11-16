@@ -44,14 +44,15 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUB_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CCED1F416E1F4E11A1C51C163F88F2FB }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_ACF2BB91190B480BBE1ADD955E39911E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8B1AC89A9F7F496797093446FF088282 }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: "mi-tiendaOnline"
           package: .
+
 
 
