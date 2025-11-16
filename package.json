@@ -4,10 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "serve:ssr:TiendaEnLinea": "node dist/TiendaEnLinea/server/server.mjs"
-  },
+    "build": "ng build --configuration production"
+},
   "private": true,
   "dependencies": {
     "@angular/common": "^20.0.0",
