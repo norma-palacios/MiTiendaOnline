@@ -1,66 +1,55 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Angular app to Azure Web App - mi-tiendaOnline
+name: Build and deploy Angular SPA to Azure Web App
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: "18.x"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build Angular app
-        run: npm run build --if-present
+      - name: Build Angular
+        run: npm run build --configuration production
 
-      - name: Upload Angular dist folder
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: angular-dist
-          path: dist/TiendaEnLinea/
-
+          name: app
+          path: dist/**/*
+  
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
-          name: angular-dist
+          name: app
 
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CCED1F416E1F4E11A1C51C163F88F2FB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_ACF2BB91190B480BBE1ADD955E39911E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8B1AC89A9F7F496797093446FF088282 }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUB_ID }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'mi-tiendaOnline'
-          slot-name: 'Production'
+          app-name: "mi-tiendaOnline"
           package: .
-
-          
-
